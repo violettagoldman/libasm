@@ -1,11 +1,10 @@
 #include "libftprintf.h"
-#include <s
 
 int		ft_strlen(const char *s);
-char	*ft_stpcpy(char *dst, const char * src);
+char	*ft_strcpy(const char *dst, const char *src);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_write(int fildes, const void *buf, size_t nbyte);
-int		ft_read(int fildes, void *buf, size_t nbyte);
+int		ft_read(int fildes, const void *buf, size_t nbyte);
 char	*ft_strdup(const char *s1);
 
 void	ft_assert(int a, int b)
@@ -23,6 +22,23 @@ void	ft_assert(int a, int b)
 
 int		main(void)
 {
+	const char	*src;
+	char		*dst;
+	char		*res;
+	char		*buffer;
+	int			i;
+
+	i = 0;
+	if (!(dst = (char *)malloc(sizeof(char) * 10)))
+		return (0);
+	if (!(buffer = (char *)malloc(sizeof(char) * 128)))
+		return (0);
+	while (i < 128)
+	{
+		buffer[i] = 0;
+		i++;
+	}
+
 	ft_printf("\033[0;33mft_strlen ");
 	//simple test
 	ft_assert(ft_strlen("test"), 4);
@@ -41,24 +57,26 @@ int		main(void)
 	ft_assert(ft_strlen(""), 0);
 	//'\0' test
 	ft_assert(ft_strlen("\0FAIL"), 0);
-	ft_printf("\n\033[0;33mft_strcpy\033[0m ");
-	ft_assert(ft_strcpy("Lorem ipsum dolor sit amet, consectetur adipiscing\
-	elit. Integer accumsan nec urna sit amet efficitur. Sed sit amet pulvinar\
-	erat, eu interdum velit. Aliquam erat volutpat. Integer nec velit purus. \
-	Cras cursus, nibh vel consequat imperdiet, nisl urna venenatis est, nec\
-	elementum lacus ligula vitae lectus. Nam massa urna, placerat a mauris\
-	eget, gravida volutpat dui. Sed faucibus felis et risus rhoncus, sit amet\
-	suscipit magna varius. Donec at turpis mauris. Sed\ tincidunt, nisl vitae\
-	euismod eleifend, magna urna viverra sapien, eget lacinia tortor velit non \
-	sapien. Nulla orci risus, eleifend eu interdum at, malesuada in lacus. \
-	Aenean consequat facilisis diam a porttitor."));
 
-	ft_printf("\n\033[0;33mft_strdup\033[0m");
-	ft_assert
-	free()
-	= NULL;
-	ft_printf("\n\033[0;33mft_write\033[0m");
-	
-	ft_printf("\n\033[0;33mft_read\033[0m");
+	ft_printf("\n\033[0;33mft_strcpy\033[0m ");
+	ft_strcpy(src, "test");
+	ft_strcpy(dst, src);
+	ft_printf("Src: %s Dst: %s", src, dst);
+	free(dst);
+	dst = NULL;
+
+	ft_printf("\n\033[0;33mft_strdup \033[0m");
+	res = ft_strdup(src);
+	ft_printf("Src: %s Res: %s", src, res);
+	free(res);
+	res = NULL;
+
+	ft_printf("\n\033[0;33mft_read \033[0m");
+	ft_read(0, buffer, 10);
+
+	ft_printf("\033[0;33mft_write \033[0m");
+	ft_write(1, buffer, 10);
+	free(buffer);
+	buffer = NULL;
 	return (0);
 }
