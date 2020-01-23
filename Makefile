@@ -42,7 +42,7 @@ bonus: ${OBJ} ${OBJ_BONUS}
 test: $(NAME) main.c
 	@gcc ${CFLAGS} -I./ft_printf/inc/. -L./ft_printf -lftprintf -L. -lasm -o main main.c && ./main
 
-test_bonus:
+test_bonus: bonus main_bonus.c
 	@gcc ${CFLAGS} -I./ft_printf/inc/. -L./ft_printf -lftprintf -L. -lasm -o main_bonus main_bonus.c && ./main_bonus
 
 ./obj/%.o: ./src/%.s

@@ -32,8 +32,8 @@ int		main(void)
 	t_list *node;
 
 	node = NULL;
-	/*
 	ft_printf("\033[0;33mft_atoi_base \033[0m\n");
+	/*
 	ft_printf("42 in 10: %d\n", ft_atoi_base("42", "0123456789"));
 	ft_printf("42 in 1: %d\n", ft_atoi_base("42", "1"));
 	ft_printf("0 in 10: %d\n", ft_atoi_base("42", "0123456789"));
@@ -43,17 +43,17 @@ int		main(void)
 	ft_printf("  +-42 in 10: %d\n", ft_atoi_base("  +-42", "0123456789"));
 	ft_printf("--42 in 10: %d\n", ft_atoi_base("--42", "0123456789ABCDEF"));*/
 	
-	ft_printf("\033[0;3f3mft_list_push_front \033[0m\n");
-	/*ft_list_push_front(&node, 1);
-	ft_list_push_front(&node, 2);
-	ft_list_push_front(&node, 3);
-	ft_list_push_front(&node, 4);
-	ft_list_push_front(&node, 6);
-	ft_list_push_front(&node, 5);
-	ft_list_print(node);*/
+	ft_printf("\033[0;33m ft_list_push_front\n\033[0m");
+	ft_list_push_front(&node, (void *)1);
+	ft_list_push_front(&node, (void *)2);
+	ft_list_push_front(&node, (void *)3);
+	ft_list_push_front(&node, (void *)4);
+	ft_list_push_front(&node, (void *)6);
+	ft_list_push_front(&node, (void *)5);
+	ft_list_print(node);
 	
 	ft_printf("\033[0;33mft_list_size \033[0m\n");
-	//ft_printf("Size of the list: %d\n", ft_list_size(node));
+	ft_printf("Size of the list: %d\n", ft_list_size(node));
 
 	ft_printf("\033[0;33mft_list_sort \033[0m\n");
 	/*ft_list_sort(node);
