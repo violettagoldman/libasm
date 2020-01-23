@@ -15,7 +15,7 @@ void	ft_list_sort(t_list **begin_list, int (*cmp)(void*, void*));
 
 void	print_list(t_list *node)
 {
-	while (node)
+	while (node->next)
 	{
 		printf("%s --> ", node->data);
 		node = node->next;
@@ -94,7 +94,6 @@ int	main(void)
 	print_list(list);
 	printf("\n");
 	ft_list_sort(&list, &cmp);
-	//ft_swap(list, list->next);
 	print_list(list);
 	printf("\n");
 	puts("EMPTY LIST");
