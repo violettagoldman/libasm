@@ -33,7 +33,7 @@ $(NAME): ${NAME_PRINTF} ${OBJ}
 		@ar rcs $(NAME) ${OBJ}
 		@echo "\033[32;1mThe libasm is done \xE2\x9C\x94\033[0m          "
 
-bonus: ${OBJ} ${OBJ_BONUS}
+bonus: ${NAME_PRINTF} ${OBJ} ${OBJ_BONUS}
 		@printf "\033[0;32mMaking the library...\033[0m\r"
 		@mkdir -p ./obj/
 		@ar rcs $(NAME) ${OBJ} ${OBJ_BONUS}

@@ -43,7 +43,7 @@ int		main(void)
 	ft_printf("  +-42 in 10: %d\n", ft_atoi_base("  +-42", "0123456789"));
 	ft_printf("--42 in 10: %d\n", ft_atoi_base("--42", "0123456789ABCDEF"));*/
 	
-	ft_printf("\033[0;33m ft_list_push_front\n\033[0m");
+	ft_printf("\033[0;33mft_list_push_front\n\033[0m");
 	ft_list_push_front(&node, (void *)1);
 	ft_list_push_front(&node, (void *)2);
 	ft_list_push_front(&node, (void *)3);
