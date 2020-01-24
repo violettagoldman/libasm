@@ -31,9 +31,9 @@ int		main(void)
 	i = 0;
 	if (!(dst = (char *)malloc(sizeof(char) * 10)))
 		return (0);
-	if (!(buffer = (char *)malloc(sizeof(char) * 128)))
+	if (!(buffer = (char *)malloc(sizeof(char) * 256000)))
 		return (0);
-	while (i < 128)
+	while (i < 256000)
 	{
 		buffer[i] = 0;
 		i++;
@@ -72,10 +72,10 @@ int		main(void)
 	res = NULL;
 
 	ft_printf("\n\033[0;33mft_read \033[0m");
-	ft_read(0, buffer, 10);
+	ft_read(0, buffer, 256000);
 
 	ft_printf("\033[0;33mft_write \033[0m");
-	ft_write(1, buffer, 10);
+	ft_write(1, buffer, 256000);
 	free(buffer);
 	buffer = NULL;
 	return (0);
