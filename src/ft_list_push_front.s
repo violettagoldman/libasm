@@ -11,12 +11,12 @@ _ft_create_elem: ;void	ft_list_push_front(t_list **begin_list, void *data)
 	ret ;return node
 
 _ft_list_push_front:
-	mov rcx, [rdi] ;
+	mov rcx, [rdi] 
 	push rdi ;store first arg
 	mov rdi, rsi ;store second argument(data) to use i in a funciton
 	call _ft_create_elem
 	pop rdi ;get fist arg(list)
-	cmp rbx, 0 ;check if list is empty
+	cmp rdi, 0 ;check if list is empty
 	jnz _not_empty ;if not emtpy then go to _not_empty
 	mov [rdi], rax ;put the first node at the beginning of the list
 	ret
