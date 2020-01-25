@@ -1,42 +1,59 @@
 global _ft_list_sort: ;void	ft_list_sort(t_list **begin_list, int (*cmp)())
-extern _ft_write
-_ft_swap:
-	mov r9, qword [rdi] ;temp
-	mov r10, qword [rsi] ;temp
-	mov [rdi], r10
-	mov [rsi], r9
-	mov rdi, qword [rdi + 8]
-	jmp _while_2
+; r8 -> current
+; r9 -> next
+; r12 -> *a !preserved
+; r13 -> *b !preserved
 
+_ft_swap: ; void	swap(void **a, void **b)
+	push r12
+	push r13
+	mov r12, qword [rdi] ; temp1 = *a
+	mov r13, qword [rsi] ; temp2 = *b
+	mov [rdi], qword r13 ; *a = temp1
+	mov [rsi], qword r12 ; *b = temp2
+	mov rax, 0
+	pop r13
+	pop r12
+	ret
 
-_ft_list_sort:
-	cmp rdi, 0 ;check if NULL
-	jz _end
-	mov r13, rsi ;cmp function
-	mov rcx, [rdi] ;current = *begin_list;
-	cmp rcx, 0 ;if *begin_list == NULL
-	jz _end ;empty, doesn't need to be sorted
-	cmp qword [rcx + 8], 0 ;if *(begin_list)->next == NULL
-	jz _end ;only one node, doesn't need to be sorted
-
-_while_1:
-	cmp rcx, 0 ;current != NULL
-	jz _end
-	mov rdx, qword [rcx + 8] ;next = current->next;
-	call _while_2
-	mov rcx, qword [rcx + 8] ;current = current->next
+_ft_list_sort: ; void	ft_list_sort(t_list **begin_list, int (*cmp)())
+	mov r8, [rdi] ; current = *begin_list;
 	jmp _while_1
 
-_while_2:
-	cmp rdx, 0 ;next != NULL
+_while_1:
+	cmp r8, 0 ; while (current)
 	jz _end
-	mov rax, r13
-	mov rdi, qword [rcx]
-	mov rsi, qword [rdx]
+	mov r9, qword [r8 + 8] ; next = current->next;
+	cmp r9, 0
+	call _while_2
+	mov r8, qword [r8 + 8] ; current = current->next;
+	jmp _while_1
+
+_while_2: ; while (next)
+	cmp r9, 0
+	jz _end
+	mov rax, rsi
+	push rdi
+	push rsi
+	mov rdi, qword [r8] ; current -> data
+	mov rsi, qword [r9] ; next -> data
 	call rax
-	cmp rax, byte 0
-	jg _ft_swap
-	mov rdi, qword [rdi + 8] ;next = next->next;
+	pop rsi
+	pop rdi
+	cmp rax, 0 ; if (cmp(current->data, next->data) > 0)
+	jg _cmp_gz
+	mov r9, qword [r9 + 8] ; next = next->next;
+	jmp _while_2
+
+_cmp_gz:
+	push rdi
+	push rsi
+	mov rdi, r8
+	mov rsi, r9
+	call _ft_swap
+	pop rsi
+	pop rdi
+	mov r9, qword [r9 + 8] ; next = next->next
 	jmp _while_2
 
 _end:

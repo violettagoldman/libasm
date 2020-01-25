@@ -13,6 +13,10 @@ void	ft_list_sort(t_list **begin_list, int (*cmp)());
 void	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(),
 		void (*free_fct)(void *));
 
+int		cmp(int a, int b)
+{
+	return (a > b);
+}
 
 void	ft_list_print(t_list *list)
 {
@@ -56,8 +60,8 @@ int		main(void)
 	ft_printf("Size of the list: %d\n", ft_list_size(node));
 
 	ft_printf("\033[0;33mft_list_sort \033[0m\n");
-	/*ft_list_sort(node);
-	ft_list_push(node);*/
+	ft_list_sort(&node, &cmp);
+	ft_list_print(node);
 
 	ft_printf("\033[0;33mft_list_remove_if \033[0m\n");
 	

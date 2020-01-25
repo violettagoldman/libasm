@@ -9,7 +9,8 @@ SRC = 	./src/ft_strlen.s \
 		./src/ft_strdup.s
 
 SRC_BONUS = ./src/ft_list_size.s \
-			./src/ft_list_push_front.s
+			./src/ft_list_push_front.s \
+			./src/ft_list_sort.s
 
 SRC_TMP = $(subst ./src/,./obj/,${SRC})
 SRC_BONUS_TMP = $(subst ./src/,./obj/,${SRC_BONUS})
