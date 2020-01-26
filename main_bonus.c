@@ -18,6 +18,18 @@ int		cmp(int a, int b)
 	return (a > b);
 }
 
+int		cmp2(int a, int b)
+{
+	ft_printf("MUUR\n");
+	return (a != b);
+}
+
+void	free_fct(void *el)
+{
+	(void)el;
+	ft_printf("MEOW");
+}
+
 void	ft_list_print(t_list *list)
 {
 	t_list *tmp;
@@ -64,6 +76,8 @@ int		main(void)
 	ft_list_print(node);
 
 	ft_printf("\033[0;33mft_list_remove_if \033[0m\n");
-	
+	ft_printf("Remove: 3\n");
+	ft_list_remove_if(&node, (void *)1, &cmp2, &free_fct);
+	ft_list_print(node);
 	return (0);
 }
