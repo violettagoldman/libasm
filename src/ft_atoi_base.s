@@ -21,7 +21,7 @@ _ft_atoi_base:
 	call _ft_strlen
 	mov r11, rax ; base_len = ft_strlen(base)
 	pop rdi
-	mov r10b, byte [rdi + r8]
+	mov r9b, byte [rsi]
 	call _base_check
 	cmp rax, 0
 	jz _end
@@ -35,9 +35,45 @@ _ft_atoi_base:
 _base_check:
 	cmp r9, 0
 	jz _base_check_end
+	
 	ret
 
-_base_check_end:
+_while_base_check:
+	cmp r9b, [rsi + rcx]
+	jz _check_end_true
+	cmp r9b, 9
+	jz _check_end_false
+	cmp r9b, 10
+	jz _check_end_false
+	cmp r9b, 11
+	jz _check_end_false
+	cmp r9b, 12
+	jz _check_end_false
+	cmp r9b, 13
+	jz _check_end_false
+	cmp r9b, 32
+	jz _check_end_false
+	mov rcx, r8
+	call _while_base_check_2
+	inc r8
+	jmp _while_base_check
+
+_while_base_check_2:
+	cmp r10b, byte [rsi + rcx]
+	jz _end_while
+	cmp r10b, r9b
+	jz _base_check_end_false
+	inc rcx
+	jmp _while_base_check_2
+
+_end_while:
+	ret
+
+_base_check_end_true:
+	mov rax, 1
+	ret
+
+_base_check_end_false:
 	mov rax, 0
 	ret
 
