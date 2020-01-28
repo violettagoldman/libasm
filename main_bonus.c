@@ -50,6 +50,7 @@ int		main(void)
 	node = NULL;
 	ft_printf("\033[0;33mft_atoi_base \033[0m\n");
 	ft_printf("42 in 10: %d\n", ft_atoi_base("42", "0123456789"));
+	ft_printf("-++++-++-42 in 10: %d\n", ft_atoi_base("-++++-++-42", "0123456789"));
 	//ft_printf("42 in 1: %d\n", ft_atoi_base("42", "1"));
 	ft_printf("0 in 10: %d\n", ft_atoi_base("0", "0123456789"));
 	ft_printf("2A in 16: %d\n", ft_atoi_base("2A", "0123456789ABCDEF"));
