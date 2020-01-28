@@ -49,8 +49,8 @@ int		main(void)
 
 	node = NULL;
 	ft_printf("\033[0;33mft_atoi_base \033[0m\n");
+	ft_printf("42 in 10: %d\n", ft_atoi_base("5", "0123456789"));
 	/*
-	ft_printf("42 in 10: %d\n", ft_atoi_base("42", "0123456789"));
 	ft_printf("42 in 1: %d\n", ft_atoi_base("42", "1"));
 	ft_printf("0 in 10: %d\n", ft_atoi_base("42", "0123456789"));
 	ft_printf("42 in ' +012345': %d\n", ft_atoi_base("42", " +012345"));
@@ -77,7 +77,7 @@ int		main(void)
 
 	ft_printf("\033[0;33mft_list_remove_if \033[0m\n");
 	ft_printf("Remove: 3\n");
-	ft_list_remove_if(&node, (void *)1, &cmp2, &free_fct);
+	//ft_list_remove_if(&node, (void *)1, &cmp2, &free_fct);
 	ft_list_print(node);
 	return (0);
 }
