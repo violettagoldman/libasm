@@ -21,8 +21,8 @@ _ft_atoi_base:
 	call _ft_strlen
 	mov r11, rax ; base_len = ft_strlen(base)
 	pop rdi
-	mov r9b, byte [rsi]
-	call _base_check
+	;mov r9b, byte [rsi]
+	;call _base_check ; int		base_check(char *base)
 	cmp rax, 0
 	jz _end
 	mov rax, 0
@@ -33,37 +33,38 @@ _ft_atoi_base:
 	jmp _while_str
 
 _base_check:
-	cmp r9, 0
-	jz _base_check_end
-	
+	cmp r9, 0 ; if (!base[i])
+	jz _base_check_end_false ; return (0)
+	call _while_base_check ; while (base[i])
 	ret
 
 _while_base_check:
-	cmp r9b, [rsi + rcx]
-	jz _check_end_true
+	cmp r9b, [rsi + r8] ; base[i]
+	jz _base_check_end_true
 	cmp r9b, 9
-	jz _check_end_false
+	jz _base_check_end_false
 	cmp r9b, 10
-	jz _check_end_false
+	jz _base_check_end_false
 	cmp r9b, 11
-	jz _check_end_false
+	jz _base_check_end_false
 	cmp r9b, 12
-	jz _check_end_false
+	jz _base_check_end_false
 	cmp r9b, 13
-	jz _check_end_false
+	jz _base_check_end_false
 	cmp r9b, 32
-	jz _check_end_false
-	mov rcx, r8
+	jz _base_check_end_false
+	mov rcx, r8 ; j = i
+	mov r10b, byte [rsi + r8]  ; base[i]
 	call _while_base_check_2
 	inc r8
 	jmp _while_base_check
 
 _while_base_check_2:
-	cmp r10b, byte [rsi + rcx]
+	cmp r9b, byte [rsi + rcx]
 	jz _end_while
 	cmp r10b, r9b
 	jz _base_check_end_false
-	inc rcx
+	inc rcx ; j++
 	jmp _while_base_check_2
 
 _end_while:
@@ -101,12 +102,10 @@ _while_sign:
 	cmp r10b, byte 43 ; str[i] == '+'
 	jz _if_sign
 	cmp r10b, byte 45 ; str[i] == '-'
-	jz _if_sign
+	jz _if_sign_min
 	ret
 
-_if_sign: ; if (str[i++] == '-')
-	cmp r10b, byte 45
-	jz _if_sign_min
+_if_sign:
 	inc r8
 	mov r10b, byte [rdi + r8]
 	jmp _while_sign
