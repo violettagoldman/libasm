@@ -19,22 +19,17 @@ _ft_atoi_base:
 	call _ft_strlen
 	mov r11, rax ; base_len = ft_strlen(base)
 	pop rdi
-	call _while_str
-	jmp _end
+	jmp _while_str
 
 _while_str:
-	cmp qword [rdi + r8], qword 0
+	cmp byte [rdi + r8], byte 0
 	jz _end
-	mov r10, [rdi + r8]
-	cmp r10, 0 ; while (str)
+	mov r10b, byte [rdi + r8]
+	cmp r10b, byte 0 ; while (str)
 	jz _end
 	mov rcx, 0 ; count = 0
-	push rsi
-	push rdi
 	call _while_base ; while (base[count] != str[i])
-	pop rdi
-	pop rsi
-	;imul r12, r11 ; nb = nb * base_len
+	imul r12, r11 ; nb = nb * base_len
 	add r12, rcx ; nb = nb + count
 	inc r8 ; i++
 	jmp _while_str
@@ -42,15 +37,16 @@ _while_str:
 _while_base: ; while (base[count] != str[i])
 	cmp qword [rsi + rcx], qword 0
 	jz _end
-	mov r9, [rsi + rcx] ; base[count]
-	cmp r9, r10 ; base[count] != str[i]
-	jnz _inc ; 
+	mov r9b, byte [rsi + rcx] ; base[count]
+	cmp r9b, r10b ; base[count] != str[i]
+	jnz _inc
+	ret
 
 _inc:
 	inc rcx ; count++
 	jmp _while_base
 
 _end:
+	mov rax, 0
 	mov rax, r12
-	;mov rax, r8
 	ret
