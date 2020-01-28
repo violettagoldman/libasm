@@ -22,8 +22,44 @@ _ft_atoi_base:
 	mov r11, rax ; base_len = ft_strlen(base)
 	pop rdi
 	mov r10b, byte [rdi + r8]
+	call _base_check
+	cmp rax, 0
+	jz _end
+	mov rax, 0
+	mov r8, 0
+	mov rcx, 0
+	call _while_sp
 	call _while_sign
 	jmp _while_str
+
+_base_check:
+	cmp r9, 0
+	jz _base_check_end
+	ret
+
+_base_check_end:
+	mov rax, 0
+	ret
+
+_while_sp: ; while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+	cmp r10b, 9
+	jz _sp
+	cmp r10b, 10
+	jz _sp
+	cmp r10b, 11
+	jz _sp
+	cmp r10b, 12
+	jz _sp
+	cmp r10b, 13
+	jz _sp
+	cmp r10b, 32
+	jz _sp
+	ret
+
+_sp:
+	inc r8
+	mov r10b, byte [rdi + r8]
+	jmp _while_sp
 
 _while_sign:
 	cmp r10b, byte 43 ; str[i] == '+'
@@ -34,14 +70,16 @@ _while_sign:
 
 _if_sign: ; if (str[i++] == '-')
 	cmp r10b, byte 45
-	call _if_sign_min
+	jz _if_sign_min
 	inc r8
 	mov r10b, byte [rdi + r8]
 	jmp _while_sign
 
 _if_sign_min:
 	imul r13, -1 ; sign *= -1
-	ret
+	inc r8
+	mov r10b, byte [rdi + r8]
+	jmp _while_sign
 
 _while_str:
 	cmp byte [rdi + r8], byte 0
