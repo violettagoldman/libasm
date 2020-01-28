@@ -10,6 +10,7 @@ extern _ft_strlen
 ; r13 -> sign
 ; rdi -> char *str
 ; rsi -> char *base
+; r14 -> flag
 
 _ft_atoi_base:
 	mov r12, 0 ; nb = 0
@@ -21,8 +22,12 @@ _ft_atoi_base:
 	call _ft_strlen
 	mov r11, rax ; base_len = ft_strlen(base)
 	pop rdi
-	;mov r9b, byte [rsi]
-	;call _base_check ; int		base_check(char *base)
+	cmp r11, 1
+	jz _end
+	;mov r10b, byte [rdi]
+	mov r9b, byte [rsi]
+	call _base_check ; int		base_check(char *base)
+	mov r10b, byte [rdi]
 	cmp rax, 0
 	jz _end
 	mov rax, 0
@@ -33,13 +38,13 @@ _ft_atoi_base:
 	jmp _while_str
 
 _base_check:
-	cmp r9, 0 ; if (!base[i])
+	cmp r9b, 0 ; if (!base[i])
 	jz _base_check_end_false ; return (0)
 	call _while_base_check ; while (base[i])
 	ret
 
 _while_base_check:
-	cmp r9b, [rsi + r8] ; base[i]
+	cmp r9b, 0 ; base[i]
 	jz _base_check_end_true
 	cmp r9b, 9
 	jz _base_check_end_false
@@ -53,18 +58,28 @@ _while_base_check:
 	jz _base_check_end_false
 	cmp r9b, 32
 	jz _base_check_end_false
+	cmp r9b, 43
+	jz _base_check_end_false
+	cmp r9b, 45
+	jz _base_check_end_false
 	mov rcx, r8 ; j = i
-	mov r10b, byte [rsi + r8]  ; base[i]
+	inc rcx
+	mov r10b, byte [rsi + rcx]  ; base[j]
+	mov r14, 0
 	call _while_base_check_2
+	cmp r14, 1
+	jz _end_while
 	inc r8
+	mov r9b, byte [rsi + r8]
 	jmp _while_base_check
 
 _while_base_check_2:
-	cmp r9b, byte [rsi + rcx]
+	cmp r10b, 0 ; while base[j]
 	jz _end_while
-	cmp r10b, r9b
+	cmp r10b, r9b ; base[j] == base[i]
 	jz _base_check_end_false
 	inc rcx ; j++
+	mov r10b, [rsi + rcx]
 	jmp _while_base_check_2
 
 _end_while:
@@ -76,6 +91,7 @@ _base_check_end_true:
 
 _base_check_end_false:
 	mov rax, 0
+	mov r14, 1
 	ret
 
 _while_sp: ; while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
@@ -130,7 +146,7 @@ _while_str:
 	jmp _while_str
 
 _while_base: ; while (base[count] != str[i])
-	cmp qword [rsi + rcx], qword 0
+	cmp byte [rsi + rcx], byte 0
 	jz _end
 	mov r9b, byte [rsi + rcx] ; base[count]
 	cmp r9b, r10b ; base[count] != str[i]
@@ -142,7 +158,6 @@ _inc:
 	jmp _while_base
 
 _end:
-	mov rax, 0
 	mov rax, r12
 	imul rax, r13 ; nb *= sign
 	ret
