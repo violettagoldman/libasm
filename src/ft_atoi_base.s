@@ -11,6 +11,7 @@ extern _ft_strlen
 ; rdi -> char *str
 ; rsi -> char *base
 ; r14 -> flag
+; r15 -> iterator
 
 _ft_atoi_base:
 	mov r12, 0 ; nb = 0
@@ -24,7 +25,6 @@ _ft_atoi_base:
 	pop rdi
 	cmp r11, 1
 	jz _end
-	;mov r10b, byte [rdi]
 	mov r9b, byte [rsi]
 	call _base_check ; int		base_check(char *base)
 	mov r10b, byte [rdi]
@@ -36,6 +36,25 @@ _ft_atoi_base:
 	call _while_sp
 	call _while_sign
 	jmp _while_str
+
+_is_in:
+	mov r15b, byte [rdi]
+	mov rcx, 0
+	jmp _is_in_while
+	ret
+
+_is_in_while:
+	cmp r15b, byte 0
+	jz _ret_neg
+	cmp sil, r15b
+	jz _base_check_end_true
+	inc rcx
+	mov r15b, byte [rdi + rcx]
+	jmp _is_in_while
+
+_ret_neg:
+	mov rax, 0
+	ret
 
 _base_check:
 	cmp r9b, 0 ; if (!base[i])
@@ -140,6 +159,8 @@ _while_str:
 	jz _end
 	mov rcx, 0 ; count = 0
 	call _while_base ; while (base[count] != str[i])
+	cmp rcx, 0
+	jl _ret_neg
 	imul r12, r11 ; nb = nb * base_len
 	add r12, rcx ; nb = nb + count
 	inc r8 ; i++
@@ -147,10 +168,14 @@ _while_str:
 
 _while_base: ; while (base[count] != str[i])
 	cmp byte [rsi + rcx], byte 0
-	jz _end
+	jz _end_error
 	mov r9b, byte [rsi + rcx] ; base[count]
 	cmp r9b, r10b ; base[count] != str[i]
 	jnz _inc
+	ret
+
+_end_error:
+	mov rcx, -1
 	ret
 
 _inc:
