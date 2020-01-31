@@ -37,21 +37,6 @@ _ft_atoi_base:
 	call _while_sign
 	jmp _while_str
 
-_is_in:
-	mov r15b, byte [rdi]
-	mov rcx, 0
-	jmp _is_in_while
-	ret
-
-_is_in_while:
-	cmp r15b, byte 0
-	jz _ret_neg
-	cmp sil, r15b
-	jz _base_check_end_true
-	inc rcx
-	mov r15b, byte [rdi + rcx]
-	jmp _is_in_while
-
 _ret_neg:
 	mov rax, 0
 	ret
