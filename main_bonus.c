@@ -48,15 +48,16 @@ int		main(void)
 	node = NULL;
 	ft_printf("\033[0;33mft_atoi_base \033[0m\n");
 	ft_printf("101010 in 011: %d\n", ft_atoi_base("101010", "011"));
-	ft_printf("42 in 2: %d\n", ft_atoi_base("42", "01"));
-	ft_printf("42 in 10: %d\n", ft_atoi_base("42", "0123456789"));
+	ft_printf("42 in 01: %d\n", ft_atoi_base("42", "01"));
+	ft_printf("42 in 0123456789: %d\n", ft_atoi_base("42", "0123456789"));
 	ft_printf("-++++-++-42 in 10: %d\n", ft_atoi_base("-++++-++-42", "0123456789"));
 	ft_printf("42 in 1: %d\n", ft_atoi_base("42", "1"));
 	ft_printf("42 in '': %d\n", ft_atoi_base("42", ""));
-	ft_printf("0 in 10: %d\n", ft_atoi_base("0", "0123456789"));
-	ft_printf("2A in 16: %d\n", ft_atoi_base("2A", "0123456789ABCDEF"));
-	ft_printf("101010 in 2: %d\n", ft_atoi_base("101010", "01"));
-	ft_printf("   +-42 in 10: %d\n", ft_atoi_base("  +-42", "0123456789"));
+	ft_printf("0 in 0123456789: %d\n", ft_atoi_base("0", "0123456789"));
+	ft_printf("2A in 0123456789ABCDEF: %d\n", ft_atoi_base("2A", "0123456789ABCDEF"));
+	ft_printf("101010 in 01: %d\n", ft_atoi_base("101010", "01"));
+	ft_printf("   +-42 in 0123456789: %d\n", ft_atoi_base("  +-42", "0123456789"));
+	ft_printf("700chmod in 0123456789: %d\n", ft_atoi_base("700chmod", "0123456789"));
 
 	ft_printf("\033[0;33mft_list_push_front\n\033[0m");
 	ft_list_push_front(&node, (void *)1);
