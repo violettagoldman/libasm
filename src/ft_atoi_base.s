@@ -145,7 +145,7 @@ _while_str:
 	mov rcx, 0 ; count = 0
 	call _while_base ; while (base[count] != str[i])
 	cmp rcx, 0
-	jl _ret_neg
+	jl _end
 	imul r12, r11 ; nb = nb * base_len
 	add r12, rcx ; nb = nb + count
 	inc r8 ; i++
