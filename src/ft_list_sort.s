@@ -1,4 +1,4 @@
-global _ft_list_sort: ;void	ft_list_sort(t_list **begin_list, int (*cmp)())
+global ft_list_sort: ;void	ft_list_sort(t_list **begin_list, int (*cmp)())
 ; r8 -> current
 ; r9 -> next
 ; r12 -> *a !preserved
@@ -16,7 +16,7 @@ _ft_swap: ; void	swap(void **a, void **b)
 	pop r12
 	ret
 
-_ft_list_sort: ; void	ft_list_sort(t_list **begin_list, int (*cmp)())
+ft_list_sort: ; void	ft_list_sort(t_list **begin_list, int (*cmp)())
 	mov r8, [rdi] ; current = *begin_list;
 	jmp _while_1
 

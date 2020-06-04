@@ -1,6 +1,6 @@
-global _ft_list_size:
+global ft_list_size:
 
-_ft_list_size:
+ft_list_size:
 	mov rcx, 0 ;count
 
 _while:

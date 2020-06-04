@@ -1,16 +1,16 @@
-extern _malloc
-global _ft_list_push_front:
+extern malloc
+global ft_list_push_front:
 
 _ft_create_elem: ;void	ft_list_push_front(t_list **begin_list, void *data)
 	push rdi ;store data in stack
 	mov rdi, 16 ;16 bytes to malloc a structure
-	call _malloc
+	call malloc
 	pop rdi ;get data from stack
 	mov qword [rax], qword rdi ;initialize data in a node
 	mov qword [rax + 8], qword 0 ;initialize new address to NULL
 	ret ;return node
 
-_ft_list_push_front:
+ft_list_push_front:
 	mov rcx, [rdi] 
 	push rdi ;store first arg
 	mov rdi, rsi ;store second argument(data) to use i in a funciton

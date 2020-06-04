@@ -1,4 +1,4 @@
-#[<0;56;38M**************************************************************************** #
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -6,11 +6,13 @@
 #    By: vgoldman <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/31 21:24:15 by vgoldman          #+#    #+#              #
-#    Updated: 2020/01/20 22:39:08 by vgoldman         ###   ########.fr        #
+#    Updated: 2020/06/03 17:42:05 by vgoldman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
+
+TICK = \342\234\224
 
 SRC =	./src/ft_printf.c\
 		./src/handle_ut.c\
@@ -46,7 +48,7 @@ ${NAME}:${OBJ}
 		@printf "\033[0;32mMaking the library...\033[0m\r"
 		@mkdir -p ./obj/
 		@ar rcs ${NAME} ${OBJ}
-		@echo "\033[32;1mThe libftprintf is done \xE2\x9C\x94\033[0m          "
+		@echo "\033[32;1mThe libftprintf is done ${TICK}\033[0m          "
 
 ./obj/%.o: ./src/%.c
 	@mkdir -p ./obj/
@@ -54,14 +56,12 @@ ${NAME}:${OBJ}
 
 clean:
 	@rm -rf ${OBJ} a.out a.out.dSYM
-	@echo "\033[32;1mCleaned libftprintf \xE2\x9C\x94\033[0m"
+	@echo "\033[32;1mCleaned libftprintf ${TICK}\033[0m"
 
 fclean: clean
 		@rm -rf ${NAME} obj main.c
-		@echo "\033[32;1mForced cleaned libftprintf \xE2\x9C\x94\033[0m"
+		@echo "\033[32;1mForced cleaned libftprintf ${TICK}\033[0m"
 
 re: fclean all
 
 .PHONY: clean fclean all re
-
-

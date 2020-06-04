@@ -1,6 +1,6 @@
-global _ft_list_remove_if ;void	ft_list_remove_if(t_list **head_list,
+global ft_list_remove_if ;void	ft_list_remove_if(t_list **head_list,
 					;void *data_ref, int (*cmp)(), void (*free_fct)(void *))
-extern _free
+extern free
 
 ;r8 ->	*previous
 ;r9 ->	*current
@@ -11,7 +11,7 @@ extern _free
 ;rdx -> cmp
 ;rcx -> free_fct
 
-_ft_list_remove_if:
+ft_list_remove_if:
 	mov r8, 0 ; previous = 0
 	mov r9, [rdi] ; current = *head_list
 	jmp _while
@@ -50,7 +50,7 @@ _if_cmp:
 	push r10
 	push r11
 	mov rdi, r9
-	call _free
+	call free
 	pop r11
 	pop r10
 	pop r9

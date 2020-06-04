@@ -1,5 +1,5 @@
-global _ft_atoi_base ;int	ft_atoi_base(char *str, char *base)
-extern _ft_strlen
+global ft_atoi_base ;int	ft_atoi_base(char *str, char *base)
+extern ft_strlen
 
 ; rcx -> count
 ; r8 -> int i
@@ -13,14 +13,14 @@ extern _ft_strlen
 ; r14 -> flag
 ; r15 -> iterator
 
-_ft_atoi_base:
+ft_atoi_base:
 	mov r12, 0 ; nb = 0
 	mov r8, 0 ; i = 0
 	mov rcx, 0 ; count = 0
 	mov r13, 1 ; sign = 1
 	push rdi
 	mov rdi, rsi
-	call _ft_strlen
+	call ft_strlen
 	mov r11, rax ; base_len = ft_strlen(base)
 	pop rdi
 	cmp r11, 1

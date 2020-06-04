@@ -1,11 +1,16 @@
-#include "libftprintf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/04 13:51:03 by vgoldman          #+#    #+#             */
+/*   Updated: 2020/06/04 13:56:25 by vgoldman         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int		ft_strlen(const char *s);
-char	*ft_strcpy(const char *dst, const char *src);
-int		ft_strcmp(const char *s1, const char *s2);
-int		ft_write(int fildes, const void *buf, size_t nbyte);
-int		ft_read(int fildes, const void *buf, size_t nbyte);
-char	*ft_strdup(const char *s1);
+#include "libasm.h"
 
 void	ft_assert(int a, int b)
 {
@@ -15,34 +20,10 @@ void	ft_assert(int a, int b)
 		ft_printf("\033[1;31m[FAIL]\033[0m");
 }
 
-/*
- * DISCLAIMER!
- * ALL functions are compared to the ouptput of original functions.
- */
-
-int		main(void)
+void	strlen_test(void)
 {
-	const char	*src;
-	char		*dst;
-	char		*res;
-	char		*buffer;
-	int			i;
-
-	i = 0;
-	if (!(dst = (char *)malloc(sizeof(char) * 10)))
-		return (0);
-	if (!(buffer = (char *)malloc(sizeof(char) * 256000)))
-		return (0);
-	while (i < 256000)
-	{
-		buffer[i] = 0;
-		i++;
-	}
-
 	ft_printf("\033[0;33mft_strlen ");
-	//simple test
 	ft_assert(ft_strlen("test"), 4);
-	//very long test
 	ft_assert(ft_strlen("Lorem ipsum dolor sit amet, consectetur adipiscing\
 	elit. Integer accumsan nec urna sit amet efficitur. Sed sit amet pulvinar\
 	erat, eu interdum velit. Aliquam erat volutpat. Integer nec velit purus.\
@@ -53,30 +34,54 @@ int		main(void)
 	euismod eleifend, magna urna viverra sapien, eget lacinia tortor velit non\
 	sapien. Nulla orci risus, eleifend eu interdum at, malesuada in lacus.\
 	Aenean consequat facilisis diam a porttitor."), 678);
-	//Empty string test
 	ft_assert(ft_strlen(""), 0);
-	//'\0' test
 	ft_assert(ft_strlen("\0FAIL"), 0);
+}
 
+void	read_write_test(void)
+{
+	int		i;
+	char	*buffer;
+
+	i = 0;
+	if (!(buffer = (char *)malloc(sizeof(char) * 256000)))
+		return ;
+	while (i < 256000)
+	{
+		buffer[i] = 0;
+		i++;
+	}
+	ft_printf("\n\033[0;33mft_read \033[0m");
+	ft_read(0, buffer, 256000);
+	ft_printf("\033[0;33mft_write \033[0m");
+	ft_write(1, buffer, 256000);
+	free(buffer);
+	buffer = NULL;
+}
+
+int		main(void)
+{
+	char		*src;
+	char		*dst;
+	char		*res;
+
+	if (!(src = (char *)malloc(sizeof(char) * 100)))
+		return (0);
+	if (!(dst = (char *)malloc(sizeof(char) * 10)))
+		return (0);
+	strlen_test();
 	ft_printf("\n\033[0;33mft_strcpy\033[0m ");
 	ft_strcpy(src, "test");
 	ft_strcpy(dst, src);
 	ft_printf("Src: %s Dst: %s", src, dst);
 	free(dst);
 	dst = NULL;
-
 	ft_printf("\n\033[0;33mft_strdup \033[0m");
 	res = ft_strdup(src);
 	ft_printf("Src: %s Res: %s", src, res);
 	free(res);
 	res = NULL;
-
-	ft_printf("\n\033[0;33mft_read \033[0m");
-	ft_read(0, buffer, 256000);
-
-	ft_printf("\033[0;33mft_write \033[0m");
-	ft_write(1, buffer, 256000);
-	free(buffer);
-	buffer = NULL;
+	free(src);
+	read_write_test();
 	return (0);
 }
