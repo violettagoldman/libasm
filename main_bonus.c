@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:03:59 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/04 20:22:22 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/06/04 20:30:27 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,26 @@ void	atoi_base_test(void)
 		ft_atoi_base("700chmod", "0123456789"));
 }
 
+void	list_push_front_test(t_list **node)
+{
+	ft_printf("\033[0;33mft_list_push_front\n\033[0m");
+	ft_list_push_front(NULL, (void *)42);
+	ft_list_push_front(node, (void *)1);
+	ft_list_push_front(node, (void *)2);
+	ft_list_push_front(node, (void *)3);
+	ft_list_push_front(node, (void *)4);
+	ft_list_push_front(node, (void *)6);
+	ft_list_push_front(node, (void *)5);
+	ft_list_print(*node);
+}
+
 int		main(void)
 {
 	t_list *node;
 
 	node = NULL;
 	atoi_base_test();
-	ft_printf("\033[0;33mft_list_push_front\n\033[0m");
-	ft_list_push_front(NULL, (void *)42);
-	ft_list_push_front(&node, (void *)1);
-	ft_list_push_front(&node, (void *)2);
-	ft_list_push_front(&node, (void *)3);
-	ft_list_push_front(&node, (void *)4);
-	ft_list_push_front(&node, (void *)6);
-	ft_list_push_front(&node, (void *)5);
-	ft_list_print(node);
+	list_push_front_test(&node);
 	ft_printf("\033[0;33mft_list_size \033[0m\n");
 	ft_printf("Size of the list: %d\n", ft_list_size(node));
 	ft_printf("\033[0;33mft_list_sort \033[0m\n");

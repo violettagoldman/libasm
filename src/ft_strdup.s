@@ -13,3 +13,6 @@ ft_strdup:
 	pop rsi ;get stored argument
 	call ft_strcpy
 	ret
+
+_end:
+	ret
