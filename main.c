@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 13:51:03 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/04 22:35:19 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/06/04 22:52:20 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	read_write_test(void)
 	res = ft_write(10, buffer, 1);
 	ft_printf("%d, %s, %d", errno, strerror(errno), res);
 	free(buffer);
-	buffer = NULL;
 }
 
 int		main(void)
