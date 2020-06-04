@@ -13,6 +13,8 @@ extern free
 
 ft_list_remove_if:
 	mov r8, 0 ; previous = 0
+	cmp rdi,0
+	jz _end
 	mov r9, [rdi] ; current = *head_list
 	jmp _while
 

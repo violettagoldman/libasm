@@ -17,6 +17,8 @@ _ft_swap: ; void	swap(void **a, void **b)
 	ret
 
 ft_list_sort: ; void	ft_list_sort(t_list **begin_list, int (*cmp)())
+	cmp rdi, 0
+	jz _end
 	mov r8, [rdi] ; current = *begin_list;
 	jmp _while_1
 

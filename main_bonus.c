@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:03:59 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/04 13:44:33 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/06/04 20:05:19 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,12 @@ int		main(void)
 	ft_printf("Size of the list: %d\n", ft_list_size(node));
 	ft_printf("\033[0;33mft_list_sort \033[0m\n");
 	ft_list_sort(&node, &cmp);
+	ft_list_sort(NULL, &cmp);
 	ft_list_print(node);
 	ft_printf("\033[0;33mft_list_remove_if \033[0m\n");
 	ft_printf("Remove: 3\n");
 	ft_list_remove_if(&node, (void *)3, &cmp2, &free_fct);
+	ft_list_remove_if(NULL, (void *)3, &cmp2, &free_fct);
 	ft_list_print(node);
 	delete_list(node);
 	return (0);
