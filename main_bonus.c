@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 10:03:59 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/04 20:05:19 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/06/04 20:22:22 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	atoi_base_test(void)
 {
 	ft_printf("\033[0;33mft_atoi_base \033[0m\n");
+	ft_printf("NULL in NULL: %d\n", ft_atoi_base(NULL, NULL));
 	ft_printf("101010 in 011: %d\n", ft_atoi_base("101010", "011"));
 	ft_printf("42 in 01: %d\n", ft_atoi_base("42", "01"));
 	ft_printf("42 in 0123456789: %d\n", ft_atoi_base("42", "0123456789"));
@@ -39,6 +40,7 @@ int		main(void)
 	node = NULL;
 	atoi_base_test();
 	ft_printf("\033[0;33mft_list_push_front\n\033[0m");
+	ft_list_push_front(NULL, (void *)42);
 	ft_list_push_front(&node, (void *)1);
 	ft_list_push_front(&node, (void *)2);
 	ft_list_push_front(&node, (void *)3);

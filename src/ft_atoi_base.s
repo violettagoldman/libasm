@@ -14,6 +14,10 @@ extern ft_strlen
 ; r15 -> iterator
 
 ft_atoi_base:
+	cmp rdi, 0
+	jz _end
+	cmp rsi, 0
+	jz _end
 	mov r12, 0 ; nb = 0
 	mov r8, 0 ; i = 0
 	mov rcx, 0 ; count = 0
