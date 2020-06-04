@@ -6,11 +6,13 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 13:51:03 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/04 20:51:41 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/06/04 22:35:19 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libasm.h"
+#include <string.h>
+#include <errno.h>
 
 void	ft_assert(int a, int b)
 {
@@ -42,6 +44,7 @@ void	read_write_test(void)
 {
 	int		i;
 	char	*buffer;
+	int		res;
 
 	i = 0;
 	if (!(buffer = (char *)malloc(sizeof(char) * 256000)))
@@ -51,10 +54,18 @@ void	read_write_test(void)
 		buffer[i] = 0;
 		i++;
 	}
-	ft_printf("\n\033[0;33mft_read \033[0m");
-	ft_read(0, buffer, 256000);
+	ft_printf("\n\033[0;33mft_read errno \033[0m");
+	res = ft_read(3, buffer, 10);
+	ft_printf("%d, %s, %d\n", errno, strerror(errno), res);
+	ft_printf("\033[0;33mft_read \033[0m");
+	res = ft_read(0, buffer, 256000);
+	ft_printf("%d, %s, %d\n", errno, strerror(errno), res);
 	ft_printf("\033[0;33mft_write \033[0m");
-	ft_write(1, buffer, 256000);
+	res = ft_write(1, buffer, 256000);
+	ft_printf("%d, %s, %d", errno, strerror(errno), res);
+	ft_printf("\n\033[0;33mft_write errno \033[0m");
+	res = ft_write(10, buffer, 1);
+	ft_printf("%d, %s, %d", errno, strerror(errno), res);
 	free(buffer);
 	buffer = NULL;
 }
